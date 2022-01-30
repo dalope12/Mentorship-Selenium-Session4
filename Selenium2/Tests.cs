@@ -35,14 +35,18 @@ namespace Selenium2
             webdriver.FindElement(locatorSearchInput).SendKeys("Query");
             webdriver.FindElements(locatorGoogleSearchButton)[1].Click();
 
+            // Another way to search the word in Google by sending 'Enter' keys
             // webdriver.FindElement(locatorSearchInput).SendKeys(Keys.Enter);
 
-            // Close
-            webdriver.Close();
+            // Get the page title text.
+            var titleText = webdriver.Title;
 
-            // Quit
+            // Close the driver instance.
+            webdriver.Close();
             webdriver.Quit();
-            Assert.Pass();
+
+            // Assert that the title of the page contains "Query" text.
+            Assert.That(titleText.Contains("hola"), $"The page title does not contain 'Query', instead contains : {titleText}");
         }
 
         [Test, Category("E2E"), Category("Production")]
@@ -61,7 +65,7 @@ namespace Selenium2
             webdriver.Quit();
 
             // Assert that the title of the page contains "hola" text.
-            Assert.True(tittleBool, "The page title is not 'hola'.");
+            Assert.True(tittleBool, "The page title does not contain 'hola'.");
         }
 
         [Test, Category("E2E"), Category("Production")]
@@ -79,7 +83,7 @@ namespace Selenium2
             webdriver.Quit();
 
             // Assert that the title of the page contains "hola" text.
-            Assert.That(titleText.Contains("hola"), $"The page title is not 'hola', is: {titleText}");
+            Assert.That(titleText.Contains("hola"), $"The page title does not contain 'hola', instead contains : {titleText}");
         }
 
         // Types of Locators
